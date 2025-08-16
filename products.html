@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <style type="text/tailwindcss">
+      @custom-variant hover (&:hover);
+      .product-card {
+        @apply flex flex-col shadow-lg shadow-pink-200 hover:shadow-xl transform hover:-translate-y-1 transition duration-300 rounded-xl;
+      }
+      .product-img {
+        @apply relative rounded-xl;
+      }
+      .product-img img {
+        @apply h-[220px] min-w-[200px] w-full object-cover rounded-t-xl;
+      }
+      .product-description {
+        @apply bg-white flex flex-col gap-2 p-4 rounded-b-xl;
+      }
+      .product-name {
+        @apply text-lg text-black group-hover:text-pink-400 font-medium inline-block;
+      }
+      .product-price {
+        @apply text-[1.5rem] font-bold text-pink-400 mr-2;
+      }
+      .product-discount {
+        @apply text-sm text-black/50 font-normal line-through;
+      }
+      .product-card button {
+        @apply w-full rounded-xl bg-gradient-to-r from-pink-300 to-pink-400 group-hover:from-pink-500 group-hover:cursor-pointer text-white p-2 font-medium text-base;
+      }
+      .tag {
+        @apply bg-purple-400 rounded-xl px-3 py-[3px] absolute top-4 left-4 text-xs font-medium text-white;
+      }
+      .tag-sale {
+        @apply bg-pink-300 rounded-xl px-3 py-[3px] absolute top-4 right-4 text-xs font-medium text-white;
+      }
+    </style>
+  </head>
+  <body
+    class="box-border p-0 m-0 bg-gradient-to-b from-pink-100 to-red-100 min-h-screen"
+  >
+    <div
+      id="pageLoader"
+      class="fixed flex items-center justify-center z-50 items-center inset-0 bg-gradient-to-b from-pink-100 to-red-100 min-h-screen"
+    >
+      <div
+        class="size-8 rounded-full border-pink-500 border-4 border-t-transparent animate-spin"
+      ></div>
+    </div>
+    <header class="my-8">
+      <div class="max-w-[1400px] mx-auto text-center">
+        <h1 class="text-black/70 text-4xl font-bold mb-4">
+          Premium <span class="text-pink-400">Products</span>
+        </h1>
+        <p class="max-w-[600px] text-black/50 text-base mx-auto">
+          Discover our curated collection of high-quality tech products designed
+          for modern professionals.
+        </p>
+      </div>
+    </header>
+    <section>
+      <div class="max-w-[1400px] mx-auto">
+        <div
+          class="grid p-6 grid-cols-1 sm:grid-cols-2 md-grid-cols-3 lg:grid-cols-4 gap-6"
+          id="productContainer"
+        >
+          <!-- Product Item -->
+          <!-- <div class="product-card group">
+            <div class="product-img">
+              <img src="images/product1.jpg" alt="product" />
+              <span class="tag">Cosemetic</span>
+              <span class="tag-sale">Sale</span>
+            </div>
+            <div class="product-description">
+              <span class="product-name">Makeup </span>
+              <span class="product-price"
+                >$299 <sup class="product-discount">$399</sup></span
+              >
+              <button>Add to Cart</button>
+            </div>
+          </div> -->
+        </div>
+        <!-- Loading -->
+
+        <div id="loader" class="flex justify-center items-center py-4 hidden">
+          <div
+            class="size-6 rounded-full border-4 border-pink-500 border-t-transparent animate-spin"
+          ></div>
+        </div>
+        <!-- Load More Button -->
+
+        <div class="my-4 w-full text-center">
+          <button
+            class="bg-pink-400 text-white rounded-lg shadow-sm hover:shadow-lg shadow-pink-300 cursor-pointer py-2 px-5 font-medium"
+            id="loadMore"
+          >
+            Load More
+          </button>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+      const products = [
+        {
+          img: 'images/product1.jpg',
+          name: 'Make-up',
+          price: '$299',
+          originalPrice: '$399',
+          tag: 'Cosmetic',
+          sale: 1,
+        },
+        {
+          img: 'images/product2.jpg',
+          name: 'Smart Watch',
+          price: '$199',
+          originalPrice: '$249',
+          tag: 'Wearables',
+          sale: 1,
+        },
+        {
+          img: 'images/product3.jpg',
+          name: 'Wireless Headphones',
+          price: '$149',
+          originalPrice: '$149',
+          tag: 'Audio',
+          sale: 0,
+        },
+        {
+          img: 'images/product2.jpg',
+          name: 'Gaming Mouse',
+          price: '$59',
+          originalPrice: '$89',
+          tag: 'Accessories',
+          sale: 1,
+        },
+        {
+          img: 'images/product3.jpg',
+          name: 'Leather Jacket',
+          price: '$249',
+          originalPrice: '$299',
+          tag: 'Fashion',
+          sale: 1,
+        },
+        {
+          img: 'images/product1.jpg',
+          name: 'Bluetooth Speaker',
+          price: '$129',
+          originalPrice: '$129',
+          tag: 'Audio',
+          sale: 0,
+        },
+        {
+          img: 'images/product2.jpg',
+          name: 'Running Shoes',
+          price: '$179',
+          originalPrice: '$229',
+          tag: 'Sportswear',
+          sale: 1,
+        },
+        {
+          img: 'images/product3.jpg',
+          name: 'Backpack',
+          price: '$89',
+          originalPrice: '$99',
+          tag: 'Bags',
+          sale: 1,
+        },
+        {
+          img: 'images/product3.jpg',
+          name: 'Leather Jacket',
+          price: '$249',
+          originalPrice: '$299',
+          tag: 'Fashion',
+          sale: 1,
+        },
+        {
+          img: 'images/product1.jpg',
+          name: 'Bluetooth Speaker',
+          price: '$129',
+          originalPrice: '$129',
+          tag: 'Audio',
+          sale: 0,
+        },
+        {
+          img: 'images/product2.jpg',
+          name: 'Running Shoes',
+          price: '$179',
+          originalPrice: '$229',
+          tag: 'Sportswear',
+          sale: 1,
+        },
+        {
+          img: 'images/product3.jpg',
+          name: 'Backpack',
+          price: '$89',
+          originalPrice: '$99',
+          tag: 'Bags',
+          sale: 1,
+        },
+      ];
+
+      let productsPerPage = 8;
+      let currentIndex = 0;
+
+      const productContainer = document.getElementById('productContainer');
+      function renderProducts() {
+        document.getElementById('loader').classList.remove('hidden');
+        const nextProducts = products.slice(
+          currentIndex,
+          currentIndex + productsPerPage,
+        );
+        setTimeout(function () {
+          nextProducts.forEach((product) => {
+            const productCard = document.createElement('div');
+            productCard.classList.add('product-card', 'group');
+            const productImg = document.createElement('div');
+            productImg.classList.add('product-img');
+
+            productImg.innerHTML = `<img src=${product.img} alt="product" />
+              <span class="tag">${product.tag}</span>
+      ${product.sale ? '<span class="tag-sale">Sale</span>' : ''}
+              `;
+            productCard.appendChild(productImg);
+
+            const productDescription = document.createElement('div');
+            productDescription.classList.add('product-description');
+            productDescription.innerHTML = `
+              <span class="product-name">${product.name}</span>
+              <span class="product-price"
+                >${product.price} ${
+              product.sale
+                ? `<sup class="product-discount">${product.originalPrice}</sup>`
+                : ''
+            } </span
+              >
+              <button>Add to Cart</button>`;
+
+            productCard.appendChild(productDescription);
+            productContainer.appendChild(productCard);
+          });
+          document.getElementById('loader').classList.add('hidden');
+
+          currentIndex += productsPerPage;
+          if (currentIndex >= products.length) {
+            document.getElementById('loadMore').style.display = 'none';
+          }
+
+          const pageLoader = document.getElementById('pageLoader');
+
+          if (!pageLoader.classList.contains('hidden')) {
+            pageLoader.classList.add('hidden');
+          }
+        }, 500);
+      }
+
+      document
+        .getElementById('loadMore')
+        .addEventListener('click', renderProducts);
+
+      window.addEventListener('load', function () {
+        renderProducts();
+      });
+    </script>
+  </body>
+</html>
